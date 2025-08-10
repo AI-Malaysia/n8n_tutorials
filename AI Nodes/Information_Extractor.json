@@ -1,0 +1,101 @@
+{
+  "name": "Information Extractor",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -500,
+        -20
+      ],
+      "id": "17dc021e-8a0e-4cc2-85d5-147a04e644ed",
+      "name": "When chat message received",
+      "webhookId": "5c0d4a52-03b0-4f88-a60e-f98cda90c34c"
+    },
+    {
+      "parameters": {
+        "model": "moonshotai/kimi-k2-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        220
+      ],
+      "id": "6d7734f9-d5d4-49a9-b5b1-df07377a66f5",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "7rXGKtaM4YK4D3Qp",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.chatInput }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "company name",
+              "description": "The name of the organization or entity"
+            },
+            {
+              "name": "place",
+              "description": "The city and country where the company is located"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.1,
+      "position": [
+        -280,
+        -20
+      ],
+      "id": "206f1645-32f5-4a9d-9d7d-78b383baa199",
+      "name": "Information Extractor"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "212d54ea-fbd3-4636-b51f-813e6771c678",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "7B6SrH8Bkmm8GFv1",
+  "tags": []
+}

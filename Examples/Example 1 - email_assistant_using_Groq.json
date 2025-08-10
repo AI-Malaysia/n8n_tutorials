@@ -1,0 +1,178 @@
+{
+  "name": "email assistant using Groq",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -420,
+        -40
+      ],
+      "id": "8b990db7-3ad7-492a-8624-088891bfd64f",
+      "name": "When chat message received",
+      "webhookId": "8e5e4a28-7970-41db-afb6-86d9dc69a7e7"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -120,
+        160
+      ],
+      "id": "a03ecdfe-03b2-4023-858c-4a232191118a",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        160
+      ],
+      "id": "146c8de1-2447-444b-8b18-c1a3708c6cf2",
+      "name": "Gmail",
+      "webhookId": "3d7bd5e1-aff2-4156-978f-7ff7d502621f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "TdWeOZexTTDHUtjU",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        -40
+      ],
+      "id": "5ebbcbbb-5367-4a46-b1b7-11c0ff022945",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "gemma2-9b-it",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        180
+      ],
+      "id": "783294bc-0515-43ef-a4f5-15552cda8589",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "7rXGKtaM4YK4D3Qp",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        60,
+        180
+      ],
+      "id": "590b8540-b201-4b86-9d03-f0578f07aaba",
+      "name": "Gmail1",
+      "webhookId": "ee14fd55-ad6c-4074-9cd8-8dcab22a2621",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "TdWeOZexTTDHUtjU",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f0b1587d-dacb-4e51-9465-9a3c335905f6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "Pc9DaYLjLlmZoDtK",
+  "tags": []
+}
