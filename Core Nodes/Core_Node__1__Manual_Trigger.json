@@ -1,0 +1,271 @@
+{
+  "name": "Core Node #1 -  Manual Trigger",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1060,
+        -180
+      ],
+      "id": "f6448357-67f5-4e6f-9c88-187304b3e829",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Source: https://n8n.io/workflows/3576-paul-graham-essay-search-and-chat-with-milvus-vector-database/\n",
+        "height": 180,
+        "width": 440
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1240,
+        -400
+      ],
+      "id": "a18c90a1-4e65-40a3-830f-8344f031b155",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "url": "http://www.paulgraham.com/articles.html",
+        "options": {}
+      },
+      "id": "3a31ce2e-f96a-4b01-8257-c56b136f1a53",
+      "name": "Fetch Essay List",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -660,
+        -180
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "essay",
+              "cssSelector": "table table a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a4870298-a81f-499d-91fd-9e1cba2fc998",
+      "name": "Extract essay names",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        -460,
+        -180
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "essay",
+        "options": {}
+      },
+      "id": "c5ca486e-a327-4cf1-95d9-a8f070a2f918",
+      "name": "Split out into items",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        -260,
+        -180
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=http://www.paulgraham.com/{{ $json.essay }}",
+        "options": {}
+      },
+      "id": "71a59506-7bfe-4df0-8a0b-7aa3c04e3624",
+      "name": "Fetch essay texts",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        140,
+        -180
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "id": "9237dd04-c8a1-4ff5-89c2-7151270f2235",
+      "name": "Limit to first 3",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        -60,
+        -180
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Scrape latest Paul Graham essays",
+        "height": 285.66037735849045,
+        "width": 1071.752021563343
+      },
+      "id": "d2bab3e9-8d7c-4d5e-b679-056b8280d544",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -740,
+        -300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": "title"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "093bf5d8-332d-4371-9777-c8a857ad4f86",
+      "name": "Extract title",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        520,
+        -360
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "data",
+              "cssSelector": "body",
+              "skipSelectors": "img,nav"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "80870121-a5dc-4eeb-ad1a-6d1bb6aaab5e",
+      "name": "Extract Text Only",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        520,
+        -60
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "### The n8n manual trigger starts a workflow manually, enabling you to run it on-demand for testing, debugging, or one-off tasks.",
+        "height": 100,
+        "width": 500
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        -420
+      ],
+      "id": "1a2e0191-0bae-4d58-b36c-3d3c76faf14a",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Fetch Essay List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Essay List": {
+      "main": [
+        [
+          {
+            "node": "Extract essay names",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract essay names": {
+      "main": [
+        [
+          {
+            "node": "Split out into items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split out into items": {
+      "main": [
+        [
+          {
+            "node": "Limit to first 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit to first 3": {
+      "main": [
+        [
+          {
+            "node": "Fetch essay texts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch essay texts": {
+      "main": [
+        [
+          {
+            "node": "Extract title",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract Text Only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "211427bc-a50d-4ca0-a295-ef065568cdfe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "SWCrTHJBks9ceFC1",
+  "tags": []
+}

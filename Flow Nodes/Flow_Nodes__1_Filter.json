@@ -1,0 +1,142 @@
+{
+  "name": "Flow Nodes #1 Filter",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -380,
+        -20
+      ],
+      "id": "232b07c3-27d8-4e02-94bc-5f454d2bd994",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14ov2zLlkZ2-wZwObuYfvgd7oJLE9IyOMvX7Kuyg99wU",
+          "mode": "list",
+          "cachedResultName": "education_inequality_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14ov2zLlkZ2-wZwObuYfvgd7oJLE9IyOMvX7Kuyg99wU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14ov2zLlkZ2-wZwObuYfvgd7oJLE9IyOMvX7Kuyg99wU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -160,
+        -20
+      ],
+      "id": "06944185-345d-4cf7-88ec-ddb2dce84ecb",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5PASiptg7EmE8uDT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e55fdc5b-831f-41ec-a320-94fc775e9cff",
+              "leftValue": "={{ $json.state }}",
+              "rightValue": "Michigan",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "2f992cf0-d251-4f00-8ee6-e42a0772626c",
+              "leftValue": "={{ $json.student_teacher_ratio }}",
+              "rightValue": 20,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        60,
+        -20
+      ],
+      "id": "f3cb6361-6394-43e7-bc3c-b3df116a52ea",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "content": "Google Sheet with name education_inequality_data",
+        "height": 80,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        -140
+      ],
+      "id": "9340f5ff-3fc2-4549-b0d0-6a9a6c5223f2",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d0545c65-a6a7-4620-b1db-659afdba935c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "a3hfJ9I12zNukpvI",
+  "tags": []
+}

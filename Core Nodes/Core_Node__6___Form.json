@@ -1,0 +1,67 @@
+{
+  "name": "Core Node #6 - Form",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Survey test",
+        "formDescription": "survey testing",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "what's your name",
+              "placeholder": "joe doe",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Age",
+              "fieldType": "number",
+              "placeholder": "21",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Signup date",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Password",
+              "fieldType": "password",
+              "placeholder": "password123"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "path": "surveytest",
+          "respondWithOptions": {
+            "values": {
+              "formSubmittedText": "done"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "13f67263-f412-4dc0-9526-9cf709da627d",
+      "name": "On form submission",
+      "webhookId": "b9497431-e3e8-44b2-b637-2dd09aca5073"
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3b33a172-788a-4b34-9197-1454805fb5aa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "h4OExEDHG8uw6o0E",
+  "tags": []
+}

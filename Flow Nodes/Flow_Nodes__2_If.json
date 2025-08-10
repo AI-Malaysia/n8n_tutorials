@@ -1,0 +1,183 @@
+{
+  "name": "Flow Nodes #2 If",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -40
+      ],
+      "id": "ee99031a-443e-48f4-9db8-a268e8274853",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14ov2zLlkZ2-wZwObuYfvgd7oJLE9IyOMvX7Kuyg99wU",
+          "mode": "list",
+          "cachedResultName": "education_inequality_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14ov2zLlkZ2-wZwObuYfvgd7oJLE9IyOMvX7Kuyg99wU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14ov2zLlkZ2-wZwObuYfvgd7oJLE9IyOMvX7Kuyg99wU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -340,
+        -40
+      ],
+      "id": "4549ac96-00bc-4f9e-87d9-b778a7b2f21a",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5PASiptg7EmE8uDT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4f15b8ea-f0b8-4842-bfbc-9a89ab10e22b",
+              "leftValue": "={{ $json.state }}",
+              "rightValue": "Michigan",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -120,
+        -40
+      ],
+      "id": "10593a75-b8e1-4432-89f5-570c57c927cd",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c5a68e40-f5d3-465c-8af5-fa53174d8c8e",
+              "name": "name",
+              "value": "={{ $json.school_name }}",
+              "type": "string"
+            },
+            {
+              "id": "c115185f-7f66-422f-b506-b69a86cb7468",
+              "name": "st",
+              "value": "={{ $json.state }}",
+              "type": "string"
+            },
+            {
+              "id": "a52efb27-616d-4b90-94f4-4af0e25f7f92",
+              "name": "nm",
+              "value": "={{ $json.percent_low_income }} ",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        100,
+        -140
+      ],
+      "id": "aa403871-15a3-4581-ac5e-f7be61be4f2d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        100,
+        60
+      ],
+      "id": "32672b21-b349-4313-bcad-f8b06ff1bcd8",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7cc653e8-8a2a-435e-bc40-42283c3f2d66",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "accVd74PuVTJR63g",
+  "tags": []
+}

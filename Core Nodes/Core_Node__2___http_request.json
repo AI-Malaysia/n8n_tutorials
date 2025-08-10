@@ -1,0 +1,73 @@
+{
+  "name": "Core Node #2 - http request",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.weatherapi.com/v1/current.json",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "84321"
+            },
+            {
+              "name": "key",
+              "value": "f156237f88334974be931138250208"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -860,
+        -60
+      ],
+      "id": "b851aa26-b96c-4dfa-b622-ab4a3bed0629",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "content": "API Source: https://www.weatherapi.com/\n\nObtain your api key there for free\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        -200
+      ],
+      "id": "a2a34cde-5a91-4360-a6d7-4694056b3984",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "The HTTP Node in n8n is a powerful building block that lets you make requests to external APIs and web services. It supports various HTTP methods like GET, POST, PUT, and DELETE, enabling you to send and receive data from almost any web-based service. 🌐",
+        "height": 180,
+        "width": 280,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        -200
+      ],
+      "id": "ea98b145-6637-4237-a0a8-fa9d89e18a8e",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "507c135c-c3a9-4aa6-b40a-0a8ea63395da",
+  "meta": {
+    "instanceId": "473b5740d5349fb03e761225b353421ac7ccb518159acd126e34ec02cab1979c"
+  },
+  "id": "YrTSdy3koXvNur9L",
+  "tags": []
+}
